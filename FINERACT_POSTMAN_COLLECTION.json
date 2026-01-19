@@ -1,0 +1,636 @@
+{
+  "info": {
+    "_postman_id": "fineract-microloan",
+    "name": "Fineract Microloan Assignment",
+    "description": "Complete API collection for Microloan (Cash Loan) implementation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "PHASE 2 - System Configuration",
+      "item": [
+        {
+          "name": "Get All Offices",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/offices",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "offices"]
+            }
+          }
+        },
+        {
+          "name": "Create Branch Office",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Downtown Branch\",\n  \"openingDate\": \"01 Jan 2024\",\n  \"parentId\": 1,\n  \"dateFormat\": \"dd MMM yyyy\",\n  \"locale\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/offices",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "offices"]
+            }
+          }
+        },
+        {
+          "name": "Create Loan Officer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"John\",\n  \"lastname\": \"Smith\",\n  \"officeId\": 2,\n  \"isLoanOfficer\": true,\n  \"dateFormat\": \"dd MMM yyyy\",\n  \"locale\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/staff",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "staff"]
+            }
+          }
+        },
+        {
+          "name": "Get GL Accounts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/glaccounts?type=1&usage=1",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "glaccounts"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "1"
+                },
+                {
+                  "key": "usage",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PHASE 3 - Loan Product Configuration",
+      "item": [
+        {
+          "name": "Create Loan Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Micro Cash Loan\",\n  \"description\": \"Cash loan for microfinance customers\",\n  \"fundId\": 1,\n  \"loanType\": \"individual\",\n  \"currencyCode\": \"USD\",\n  \"digitsAfterDecimal\": 2,\n  \"principal\": \"10000\",\n  \"minPrincipal\": \"5000\",\n  \"maxPrincipal\": \"25000\",\n  \"startDate\": \"01 Jan 2024\",\n  \"locale\": \"en\",\n  \"dateFormat\": \"dd MMM yyyy\",\n  \"interestCalculationPeriodType\": 1,\n  \"interestType\": 0,\n  \"amortizationType\": 1,\n  \"numberOfRepayments\": 6,\n  \"repaymentEvery\": 1,\n  \"repaymentFrequencyType\": 2,\n  \"interestRatePerPeriod\": \"2\",\n  \"accountingRule\": 2,\n  \"includeInBorrowerCycle\": true,\n  \"useBorrowerCycle\": false\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loanproducts",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loanproducts"]
+            }
+          }
+        },
+        {
+          "name": "Get Loan Product Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loanproducts/1",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loanproducts", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PHASE 4 - Customer Onboarding",
+      "item": [
+        {
+          "name": "Create Client",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"Maria\",\n  \"lastname\": \"Santos\",\n  \"externalId\": \"EXT001\",\n  \"officeId\": 2,\n  \"dateOfBirth\": \"01 Jan 1990\",\n  \"dateFormat\": \"dd MMM yyyy\",\n  \"locale\": \"en\",\n  \"mobileNo\": \"+1234567890\",\n  \"accountNo\": \"ACC001\",\n  \"active\": true,\n  \"activationDate\": \"01 Jan 2024\",\n  \"submittedOnDate\": \"01 Jan 2024\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/clients",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "clients"]
+            }
+          }
+        },
+        {
+          "name": "Get Client Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/clients/1",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "clients", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PHASE 5 - Loan Application Flow",
+      "item": [
+        {
+          "name": "Create Loan Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": 1,\n  \"productId\": 1,\n  \"loanOfficerId\": 1,\n  \"loanType\": \"individual\",\n  \"principal\": \"10000\",\n  \"currency\": {\"code\": \"USD\"},\n  \"numberOfRepayments\": 6,\n  \"repaymentEvery\": 1,\n  \"repaymentFrequencyType\": 2,\n  \"interestRatePerPeriod\": \"2\",\n  \"amortizationType\": 1,\n  \"interestType\": 0,\n  \"interestCalculationPeriodType\": 1,\n  \"expectedDisbursementDate\": \"15 Jan 2024\",\n  \"submittedOnDate\": \"10 Jan 2024\",\n  \"locale\": \"en\",\n  \"dateFormat\": \"dd MMM yyyy\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans"]
+            }
+          }
+        },
+        {
+          "name": "Get Loan Details with Repayment Schedule",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans/1?associations=all",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans", "1"],
+              "query": [
+                {
+                  "key": "associations",
+                  "value": "all"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Approve Loan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approvedOnDate\": \"12 Jan 2024\",\n  \"locale\": \"en\",\n  \"dateFormat\": \"dd MMM yyyy\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans/1/approve",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Disburse Loan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"actualDisbursementDate\": \"15 Jan 2024\",\n  \"transactionAmount\": \"10000\",\n  \"paymentTypeId\": 1,\n  \"locale\": \"en\",\n  \"dateFormat\": \"dd MMM yyyy\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans/1/disburse",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans", "1", "disburse"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PHASE 6 - Repayments",
+      "item": [
+        {
+          "name": "On-Time Repayment (First Installment)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionDate\": \"15 Feb 2024\",\n  \"transactionAmount\": \"1700\",\n  \"paymentTypeId\": 1,\n  \"locale\": \"en\",\n  \"dateFormat\": \"dd MMM yyyy\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans/1/transactions?command=repayment",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans", "1", "transactions"],
+              "query": [
+                {
+                  "key": "command",
+                  "value": "repayment"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Partial Repayment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionDate\": \"15 Mar 2024\",\n  \"transactionAmount\": \"1000\",\n  \"paymentTypeId\": 1,\n  \"locale\": \"en\",\n  \"dateFormat\": \"dd MMM yyyy\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans/1/transactions?command=repayment",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans", "1", "transactions"],
+              "query": [
+                {
+                  "key": "command",
+                  "value": "repayment"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Early Repayment (Pre-closure)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionDate\": \"01 Apr 2024\",\n  \"transactionAmount\": \"8500\",\n  \"paymentTypeId\": 1,\n  \"locale\": \"en\",\n  \"dateFormat\": \"dd MMM yyyy\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans/1/transactions?command=repayment",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans", "1", "transactions"],
+              "query": [
+                {
+                  "key": "command",
+                  "value": "repayment"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PHASE 7 - Reports",
+      "item": [
+        {
+          "name": "Loan Portfolio Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans?status=active&sortBy=approvedOnDate",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "active"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "approvedOnDate"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Repayment Schedule",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/loans/1?associations=repaymentSchedule",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "loans", "1"],
+              "query": [
+                {
+                  "key": "associations",
+                  "value": "repaymentSchedule"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Client Loan Statement",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic bWlmb3M6cGFzc3dvcmQ=",
+                "type": "text"
+              },
+              {
+                "key": "Fineract-Platform-TenantId",
+                "value": "default",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://localhost:8443/fineract-provider/api/v1/clients/1?associations=loans",
+              "protocol": "https",
+              "host": ["localhost"],
+              "port": "8443",
+              "path": ["fineract-provider", "api", "v1", "clients", "1"],
+              "query": [
+                {
+                  "key": "associations",
+                  "value": "loans"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
